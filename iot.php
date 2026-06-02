@@ -15,7 +15,7 @@
  */
 
 // URL Firebase Realtime Database Anda (tanpa trailing slash)
-define('https://ujikom-iot-kelompok4-default-rtdb.asia-southeast1.firebasedatabase.app/', 'https://monitoring-iot-xxxx-default-rtdb.asia-southeast1.firebasedatabase.app');
+define('FIREBASE_DB_URL', 'https://ujikom-iot-kelompok4-default-rtdb.asia-southeast1.firebasedatabase.app/');
 
 // Database Secret (Legacy Token) — Ambil dari:
 // Firebase Console → Project Settings → Service Accounts → Database Secrets → Show
