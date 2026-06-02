@@ -42,26 +42,33 @@ body {
     margin-top: 6px;
 }
 
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
 }
 
-.menu a {
-    text-decoration: none;
-    color: #cbd5e1;
-    padding: 14px 18px;
-    border-radius: 14px;
-    transition: 0.3s;
-    font-size: 15px;
+.menu a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    padding:16px 20px;
+    border-radius:16px;
+    transition:.3s;
+    cursor:pointer;
 }
 
-.menu a:hover,
-.menu a.active {
-    background: rgba(56, 189, 248, 0.15);
-    color: #38bdf8;
-    box-shadow: 0 0 20px rgba(56,189,248,0.2);
+.menu a:hover{
+    background:
+    rgba(56,189,248,.15);
+
+    transform:
+    translateX(5px);
+}
+
+.menu a:active{
+    transform:
+    scale(.98);
 }
 
 /* MAIN */
