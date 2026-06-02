@@ -1,53 +1,149 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Masuk | Monitoring IoT</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/login.css" />
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Login | Monitoring IoT</title>
+
+    <link rel="stylesheet" href="css/login.css" />
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
 </head>
-<body class="login-body">
-  <div class="login-wrapper">
-    <div class="login-card">
-      <div class="login-brand">
-        <img src="img/logo.png" alt="Logo" />
-        <h1>Selamat Datang Kembali</h1>
-        <p>Masuk untuk mengakses dashboard monitoring Anda</p>
-      </div>
 
-      <form id="loginForm" class="login-form">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="username" placeholder="nama@email.com" required />
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-header">
+
+                <div class="logo">
+                    🌱
+                </div>
+
+                <h1>Smart IoT Login</h1>
+
+                <p>
+                    Masuk untuk mengakses dashboard monitoring
+                </p>
+
+            </div>
+
+            <!-- FORM LOGIN -->
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="nama@email.com"
+                        required
+                    />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <div style="position:relative;">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Masukkan password"
+                            required
+                        />
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            style="
+                                position:absolute;
+                                right:12px;
+                                top:50%;
+                                transform:translateY(-50%);
+                                background:none;
+                                border:none;
+                                cursor:pointer;
+                                color:white;
+                                font-size:18px;
+                            "
+                        >
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+                    Login
+                </button>
+
+                <p
+                    id="loginMessage"
+                    class="error-message"
+                ></p>
+
+            </form>
+
         </div>
-        <div class="form-group password-group">
-          <label for="password">Password</label>
-          <div class="input-wrapper">
-            <input type="password" id="password" placeholder="••••••••" required />
-            <button type="button" class="toggle-pass-btn" onclick="togglePassword()">👁️</button>
-          </div>
-        </div>
-        <div class="form-row">
-          <label class="checkbox">
-            <input type="checkbox" /> Ingat saya
-          </label>
-          <a href="#" class="link">Lupa password?</a>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
-        <p id="loginMessage" class="form-message"></p>
-        <p class="form-footer">Belum punya akun? <a href="#" class="link">Daftar di sini</a></p>
-      </form>
+
     </div>
 
-    <div class="login-art">
-      <div class="art-content">
-        <h2>Monitoring <br/>Lebih Cerdas</h2>
-        <p>Pantau seluruh sensor IoT Anda dalam satu dashboard yang elegan dan modern.</p>
-      </div>
-    </div>
-  </div>
+    <script>
+        const togglePassword =
+            document.getElementById(
+                "togglePassword"
+            );
 
-  <script type="module" src="js/auth.js"></script>
+        const password =
+            document.getElementById(
+                "password"
+            );
+
+        togglePassword.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    password.type ===
+                    "password"
+                ) {
+
+                    password.type =
+                        "text";
+
+                } else {
+
+                    password.type =
+                        "password";
+                }
+            }
+        );
+    </script>
+
+    <!-- AUTH -->
+    <script
+        type="module"
+        src="js/auth.js"
+    ></script>
+
 </body>
 </html>
