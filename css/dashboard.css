@@ -288,3 +288,36 @@ input:checked + .slider::before {
         font-size: 30px;
     }
 }
+
+.sensor-options{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.sensor-options label{
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    padding:20px;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.sensor-options label:hover{
+    border-color:#38bdf8;
+    transform:
+    translateY(-4px);
+}
+
+.sensor-options input{
+    margin-right:10px;
+}
