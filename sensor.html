@@ -7,66 +7,105 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Sensor Settings</title>
+    <title>Custom Sensor</title>
 
     <link
         rel="stylesheet"
         href="css/dashboard.css"
     >
-</head>
 
+    <style>
+
+        body{
+            background:#0b1120;
+            color:white;
+            font-family:Poppins,sans-serif;
+        }
+
+        .container{
+            width:90%;
+            max-width:900px;
+            margin:50px auto;
+        }
+
+        .card{
+            background:rgba(255,255,255,.05);
+            border-radius:25px;
+            padding:30px;
+            border:1px solid rgba(255,255,255,.1);
+        }
+
+        h1{
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#94a3b8;
+            margin-bottom:30px;
+        }
+
+        .sensor-list{
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit,minmax(220px,1fr));
+            gap:20px;
+        }
+
+        .sensor-item{
+            background:
+            rgba(255,255,255,.05);
+
+            border:
+            1px solid rgba(255,255,255,.08);
+
+            border-radius:20px;
+
+            padding:20px;
+        }
+
+        .sensor-item label{
+            cursor:pointer;
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+
+        input[type="checkbox"]{
+            transform:scale(1.3);
+        }
+
+        .save-btn{
+            margin-top:30px;
+            border:none;
+            padding:16px 28px;
+            border-radius:18px;
+            background:#38bdf8;
+            color:white;
+            cursor:pointer;
+            font-size:16px;
+            font-weight:600;
+        }
+
+    </style>
+</head>
 <body>
 
-<div class="dashboard-container">
+<div class="container">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <div class="card">
 
-        <div class="logo-section">
-            <h2>🌱 Smart IoT</h2>
-            <p>Monitoring System</p>
-        </div>
+        <h1>
+            🌡 Custom Sensor
+        </h1>
 
-        <nav class="menu">
-            <a href="dashboard.html">
-                📊 Dashboard
-            </a>
+        <p>
+            Pilih sensor yang ingin digunakan
+            pada dashboard monitoring.
+        </p>
 
-            <a class="menu-item" href="sensor.html">
-    🌡 Sensor
-</a>
+        <div class="sensor-list">
 
-            <a href="#">
-                ⚡ Relay
-            </a>
-
-            <a href="index.html">
-                🏠 Home
-            </a>
-        </nav>
-
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main-content">
-
-        <div class="top-header">
-            <div>
-                <h1>Sensor Settings</h1>
-                <p>
-                    Pilih sensor yang ingin digunakan
-                </p>
-            </div>
-        </div>
-
-        <div class="chart-card">
-
-            <h2 style="margin-bottom:25px;">
-                🔧 Custom Sensor
-            </h2>
-
-            <div class="sensor-options">
-
+            <div class="sensor-item">
                 <label>
                     <input
                         type="checkbox"
@@ -74,7 +113,9 @@
                     >
                     🌡 Temperature
                 </label>
+            </div>
 
+            <div class="sensor-item">
                 <label>
                     <input
                         type="checkbox"
@@ -82,7 +123,9 @@
                     >
                     💧 Humidity
                 </label>
+            </div>
 
+            <div class="sensor-item">
                 <label>
                     <input
                         type="checkbox"
@@ -90,7 +133,9 @@
                     >
                     🌱 Soil Moisture
                 </label>
+            </div>
 
+            <div class="sensor-item">
                 <label>
                     <input
                         type="checkbox"
@@ -98,7 +143,9 @@
                     >
                     ☀ Light Sensor
                 </label>
+            </div>
 
+            <div class="sensor-item">
                 <label>
                     <input
                         type="checkbox"
@@ -106,59 +153,53 @@
                     >
                     🚿 Water Level
                 </label>
+            </div>
 
+            <div class="sensor-item">
                 <label>
                     <input
                         type="checkbox"
                         value="ph"
                     >
-                    🧪 PH Sensor
+                    🧪 pH Sensor
                 </label>
-
             </div>
-
-            <button
-                id="saveSensors"
-                class="login-btn"
-                style="margin-top:25px;"
-            >
-                Simpan Sensor
-            </button>
 
         </div>
 
-    </main>
+        <button
+            class="save-btn"
+            onclick="saveSensors()"
+        >
+            Simpan Sensor
+        </button>
+
+    </div>
 
 </div>
 
 <script>
-const saveBtn =
-document.getElementById(
-"saveSensors"
-);
 
-saveBtn.addEventListener(
-"click",
-() => {
+function saveSensors(){
 
-const selected =
-[
-...document.querySelectorAll(
-'input[type="checkbox"]:checked'
-)
-].map(
-cb => cb.value
-);
+    const selected =
+    [...document.querySelectorAll(
+    'input[type="checkbox"]:checked'
+    )].map(cb=>cb.value);
 
-localStorage.setItem(
-"sensors",
-JSON.stringify(selected)
-);
+    localStorage.setItem(
+        "selectedSensors",
+        JSON.stringify(selected)
+    );
 
-alert(
-"Sensor berhasil disimpan!"
-);
-});
+    alert(
+        "Sensor berhasil disimpan!"
+    );
+
+    window.location.href =
+    "dashboard.html";
+}
+
 </script>
 
 </body>
