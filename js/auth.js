@@ -1,57 +1,89 @@
-import { auth } from './firebase-config.js';
+import { auth } from "./firebase-config.js";
+
 import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const form = document.getElementById('loginForm');
-const message = document.getElementById('loginMessage');
+// LOGIN
+const loginForm = document.getElementById("loginForm");
 
-if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
+if (loginForm) {
 
-    message.textContent = 'Memproses...';
-    message.className = 'form-message';
+    loginForm.addEventListener("submit", async (e) => {
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      message.textContent = 'Berhasil masuk! Mengalihkan...';
-      message.className = 'form-message success';
-      setTimeout(() => (window.location.href = 'dashbord.html'), 800);
-    } catch (err) {
-      message.textContent = 'Email atau password salah.';
-      message.className = 'form-message error';
-      console.error(err);
-    }
-  });
+        e.preventDefault();
+
+        const email =
+            document.getElementById("email").value;
+
+        const password =
+            document.getElementById("password").value;
+
+        try {
+
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+            console.log("Login sukses:", userCredential.user);
+
+            alert("Login berhasil!");
+
+            // PINDAH KE DASHBOARD
+            window.location.href =
+                "dashboard.html";
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Login gagal: " +
+                error.message
+            );
+        }
+    });
 }
 
-// Auto redirect jika sudah login
+// CEK LOGIN STATUS
 onAuthStateChanged(auth, (user) => {
-  if (user && window.location.pathname.endsWith('login.html')) {
-    window.location.href = 'dashboard.html';
-  }
+
+    if (user) {
+        console.log(
+            "User login:",
+            user.email
+        );
+    } else {
+        console.log("Belum login");
+    }
 });
 
-export async function logout() {
-  await signOut(auth);
-  window.location.href = 'login.html';
-}
+// LOGOUT
+const logoutBtn =
+    document.getElementById("logoutBtn");
 
-// Toggle show/hide password di form login
-window.togglePassword = function () {
-  const pass = document.getElementById('password');
-  const btn = document.querySelector('.toggle-pass-btn');
-  if (!pass) return;
-  if (pass.type === 'password') {
-    pass.type = 'text';
-    if (btn) btn.textContent = '🙈';
-  } else {
-    pass.type = 'password';
-    if (btn) btn.textContent = '👁️';
-  }
-};
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await signOut(auth);
+
+                window.location.href =
+                    "login.html";
+
+            } catch (error) {
+
+                console.error(error);
+            }
+        }
+    );
+}
