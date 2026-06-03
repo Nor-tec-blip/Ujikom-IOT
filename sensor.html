@@ -2,204 +2,155 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Custom Sensor</title>
 
-    <link
-        rel="stylesheet"
-        href="css/dashboard.css"
-    >
+    <link rel="stylesheet" href="css/dashboard.css">
 
     <style>
+        /* --- STYLE CSS UNTUK MENATA TAMPILAN --- */
 
-        body{
-            background:#0b1120;
-            color:white;
-            font-family:Poppins,sans-serif;
+        body {
+            background: #0b1120; /* Mengubah latar belakang menjadi biru sangat gelap (dark mode) */
+            color: white;        /* Mengubah semua warna teks utama menjadi putih */
+            font-family: Poppins, sans-serif; /* Menggunakan font Poppins agar terlihat modern */
         }
 
-        .container{
-            width:90%;
-            max-width:900px;
-            margin:50px auto;
+        .container {
+            width: 90%;          /* Lebar container 90% dari lebar layar */
+            max-width: 900px;    /* Lebar maksimal container tidak akan lebih dari 900px */
+            margin: 50px auto;   /* Memberi jarak atas-bawah 50px, dan auto agar posisinya di tengah layar */
         }
 
-        .card{
-            background:rgba(255,255,255,.05);
-            border-radius:25px;
-            padding:30px;
-            border:1px solid rgba(255,255,255,.1);
+        .card {
+            background: rgba(255,255,255,.05); /* Latar belakang putih transparan tipis */
+            border-radius: 25px;               /* Membuat sudut kotak menjadi melengkung/bulat */
+            padding: 30px;                     /* Memberikan jarak ruang di dalam kotak */
+            border: 1px solid rgba(255,255,255,.1); /* Garis tepi tipis transparan */
         }
 
-        h1{
-            margin-bottom:10px;
+        h1 {
+            margin-bottom: 10px; /* Memberi jarak antara judul dan teks di bawahnya */
         }
 
-        p{
-            color:#94a3b8;
-            margin-bottom:30px;
+        p {
+            color: #94a3b8;      /* Mengubah warna teks deskripsi menjadi abu-abu terang */
+            margin-bottom: 30px; /* Memberi jarak bawah sebelum masuk ke daftar sensor */
         }
 
-        .sensor-list{
-            display:grid;
-            grid-template-columns:
-            repeat(auto-fit,minmax(220px,1fr));
-            gap:20px;
+        .sensor-list {
+            display: grid;       /* Mengaktifkan sistem Grid agar layout otomatis rapi berbentuk kolom */
+            /* Membuat kolom otomatis fleksibel. Lebar minimal kotak sensor 220px, sisa ruangnya dibagi rata (1fr) */
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;           /* Jarak antar kotak sensor */
         }
 
-        .sensor-item{
-            background:
-            rgba(255,255,255,.05);
-
-            border:
-            1px solid rgba(255,255,255,.08);
-
-            border-radius:20px;
-
-            padding:20px;
+        .sensor-item {
+            background: rgba(255,255,255,.05); /* Latar belakang tiap kotak sensor */
+            border: 1px solid rgba(255,255,255,.08); /* Garis tepi tiap kotak sensor */
+            border-radius: 20px; /* Membuat sudut kotak sensor melengkung */
+            padding: 20px;       /* Ruang dalam tiap kotak sensor */
         }
 
-        .sensor-item label{
-            cursor:pointer;
-            display:flex;
-            gap:10px;
-            align-items:center;
+        .sensor-item label {
+            cursor: pointer;     /* Mengubah ikon mouse menjadi bentuk tangan saat diarahkan ke teks/tombol */
+            display: flex;       /* Mengaktifkan flexbox agar checkbox dan teks sejajar */
+            gap: 10px;           /* Jarak antara checkbox kotak dengan teks nama sensornya */
+            align-items: center; /* Membuat checkbox dan teks lurus pas di tengah secara vertikal */
         }
 
-        input[type="checkbox"]{
-            transform:scale(1.3);
+        input[type="checkbox"] {
+            transform: scale(1.3); /* Memperbesar ukuran kotak centang (checkbox) sebesar 1.3 kali lipat */
         }
 
-        .save-btn{
-            margin-top:30px;
-            border:none;
-            padding:16px 28px;
-            border-radius:18px;
-            background:#38bdf8;
-            color:white;
-            cursor:pointer;
-            font-size:16px;
-            font-weight:600;
+        .save-btn {
+            margin-top: 30px;    /* Jarak tombol dari daftar sensor di atasnya */
+            border: none;        /* Menghilangkan garis tepi bawaan tombol */
+            padding: 16px 28px;  /* Mengatur ketebalan tombol (atas-bawah 16px, kiri-kanan 28px) */
+            border-radius: 18px; /* Membuat sudut tombol melengkung */
+            background: #38bdf8; /* Mengubah warna tombol menjadi biru muda terang */
+            color: white;        /* Warna teks di dalam tombol */
+            cursor: pointer;     /* Mengubah ikon mouse jadi bentuk tangan saat menyentuh tombol */
+            font-size: 16px;     /* Ukuran teks tombol */
+            font-weight: 600;    /* Membuat teks tombol agak tebal */
         }
-
     </style>
 </head>
 <body>
 
 <div class="container">
-
     <div class="card">
 
-        <h1>
-            🌡 Custom Sensor
-        </h1>
-
-        <p>
-            Pilih sensor yang ingin digunakan
-            pada dashboard monitoring.
-        </p>
+        <h1>🌡 Custom Sensor</h1>
+        <p>Pilih sensor yang ingin digunakan pada dashboard monitoring.</p>
 
         <div class="sensor-list">
 
             <div class="sensor-item">
                 <label>
-                    <input
-                        type="checkbox"
-                        value="temperature"
-                    >
-                    🌡 Temperature
+                    <input type="checkbox" value="temperature"> 🌡 Temperature
                 </label>
             </div>
 
             <div class="sensor-item">
                 <label>
-                    <input
-                        type="checkbox"
-                        value="humidity"
-                    >
-                    💧 Humidity
+                    <input type="checkbox" value="humidity"> 💧 Humidity
                 </label>
             </div>
 
             <div class="sensor-item">
                 <label>
-                    <input
-                        type="checkbox"
-                        value="soil"
-                    >
-                    🌱 Soil Moisture
+                    <input type="checkbox" value="soil"> 🌱 Soil Moisture
                 </label>
             </div>
 
             <div class="sensor-item">
                 <label>
-                    <input
-                        type="checkbox"
-                        value="light"
-                    >
-                    ☀ Light Sensor
+                    <input type="checkbox" value="light"> ☀ Light Sensor
                 </label>
             </div>
 
             <div class="sensor-item">
                 <label>
-                    <input
-                        type="checkbox"
-                        value="water"
-                    >
-                    🚿 Water Level
+                    <input type="checkbox" value="water"> 🚿 Water Level
                 </label>
             </div>
 
             <div class="sensor-item">
                 <label>
-                    <input
-                        type="checkbox"
-                        value="ph"
-                    >
-                    🧪 pH Sensor
+                    <input type="checkbox" value="ph"> 🧪 pH Sensor
                 </label>
             </div>
 
         </div>
 
-        <button
-            class="save-btn"
-            onclick="saveSensors()"
-        >
+        <button class="save-btn" onclick="saveSensors()">
             Simpan Sensor
         </button>
 
     </div>
-
 </div>
 
 <script>
+// --- LOGIKA JAVASCRIPT ---
 
-function saveSensors(){
+function saveSensors() {
+    // 1. Mengambil semua checkbox yang sedang dicentang (:checked)
+    // 2. Tanda [...] digunakan untuk mengubah data tersebut menjadi bentuk Array biasa
+    // 3. .map(cb => cb.value) berfungsi mengambil isi atribut 'value' saja dari tiap sensor yang dicentang
+    const selected = [...document.querySelectorAll('input[type="checkbox"]:checked')].map(cb => cb.value);
 
-    const selected =
-    [...document.querySelectorAll(
-    'input[type="checkbox"]:checked'
-    )].map(cb=>cb.value);
+    // Menyimpan data sensor yang dipilih ke memori browser (LocalStorage) 
+    // dengan nama kunci "selectedSensors". JSON.stringify digunakan untuk mengubah array menjadi teks string.
+    localStorage.setItem("selectedSensors", JSON.stringify(selected));
 
-    localStorage.setItem(
-        "selectedSensors",
-        JSON.stringify(selected)
-    );
+    // Menampilkan pesan pop-up pemberitahuan kepada user
+    alert("Sensor berhasil disimpan!");
 
-    alert(
-        "Sensor berhasil disimpan!"
-    );
-
-    window.location.href =
-    "dashboard.html";
+    // Otomatis mengalihkan (redirect) halaman web ke file dashboard.html setelah tombol OK diklik
+    window.location.href = "dashboard.html";
 }
-
 </script>
 
 </body>
