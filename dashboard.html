@@ -55,34 +55,132 @@
 
             </div>
 
-            <!-- SENSOR CARDS -->
-            <section class="sensor-grid">
+            <!-- SENSOR SECTION -->
+<section id="sensor-section" class="sensor-section">
 
-                <div class="sensor-card">
-                    <h3>🌡 Temperature</h3>
-                    <h2 id="temperature">0°C</h2>
-                    <p>Realtime temperature</p>
-                </div>
+    <div class="section-header">
+        <h2>🌡 Sensor Management</h2>
+        <p>Kelola sensor yang digunakan pada sistem monitoring.</p>
+    </div>
 
-                <div class="sensor-card">
-                    <h3>💧 Humidity</h3>
-                    <h2 id="humidity">0%</h2>
-                    <p>Air humidity</p>
-                </div>
+    <div class="sensor-grid">
 
-                <div class="sensor-card">
-                    <h3>🌱 Soil Moisture</h3>
-                    <h2 id="soil">0%</h2>
-                    <p>Soil condition</p>
-                </div>
+        <div class="sensor-item">
+            <label>
+                <input type="checkbox" value="Temperature" checked>
+                🌡 Temperature Sensor
+            </label>
+        </div>
 
-                <div class="sensor-card">
-                    <h3>☀ Light</h3>
-                    <h2 id="light">0 lx</h2>
-                    <p>Light intensity</p>
-                </div>
+        <div class="sensor-item">
+            <label>
+                <input type="checkbox" value="Humidity" checked>
+                💧 Humidity Sensor
+            </label>
+        </div>
 
-            </section>
+        <div class="sensor-item">
+            <label>
+                <input type="checkbox" value="Soil Moisture" checked>
+                🌱 Soil Moisture Sensor
+            </label>
+        </div>
+
+        <div class="sensor-item">
+            <label>
+                <input type="checkbox" value="Light Sensor" checked>
+                ☀ Light Sensor
+            </label>
+        </div>
+
+        <div class="sensor-item">
+            <label>
+                <input type="checkbox" value="Water Level">
+                🚿 Water Level Sensor
+            </label>
+        </div>
+
+        <div class="sensor-item">
+            <label>
+                <input type="checkbox" value="PH Sensor">
+                🧪 PH Sensor
+            </label>
+        </div>
+
+    </div>
+
+    <button class="save-btn" onclick="saveSensors()">
+        Simpan Sensor
+    </button>
+
+    <div class="active-sensors">
+        <h3>Sensor Aktif</h3>
+        <ul id="sensorList"></ul>
+    </div>
+
+</section>
+
+<script>
+
+function saveSensors(){
+
+    const sensors = [
+        ...document.querySelectorAll(
+            '.sensor-item input:checked'
+        )
+    ].map(
+        sensor => sensor.value
+    );
+
+    localStorage.setItem(
+        "selectedSensors",
+        JSON.stringify(sensors)
+    );
+
+    renderSensors();
+
+    alert(
+        "Sensor berhasil disimpan!"
+    );
+}
+
+function renderSensors(){
+
+    const list =
+    document.getElementById(
+        "sensorList"
+    );
+
+    const sensors =
+    JSON.parse(
+        localStorage.getItem(
+            "selectedSensors"
+        )
+    ) || [];
+
+    list.innerHTML = "";
+
+    sensors.forEach(sensor => {
+
+        const li =
+        document.createElement(
+            "li"
+        );
+
+        li.textContent =
+        sensor;
+
+        list.appendChild(
+            li
+        );
+
+    });
+}
+
+window.onload =
+renderSensors;
+
+</script>
 
             <!-- CHART -->
             <section class="chart-section">

@@ -328,3 +328,104 @@ input:checked + .slider::before {
 .sensor-options input{
     margin-right:10px;
 }
+
+/* SENSOR SECTION */
+
+.sensor-section{
+    margin-top:60px;
+}
+
+.section-header h2{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.section-header p{
+    color:#94a3b8;
+    margin-bottom:25px;
+}
+
+.sensor-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.sensor-item{
+    background:
+    rgba(15,23,42,.8);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:20px;
+}
+
+.sensor-item label{
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.sensor-item input{
+    transform:scale(1.3);
+}
+
+.save-btn{
+    margin-top:25px;
+
+    border:none;
+
+    padding:15px 25px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    background:
+    linear-gradient(
+        135deg,
+        #38bdf8,
+        #0ea5e9
+    );
+
+    color:white;
+
+    font-weight:600;
+}
+
+.active-sensors{
+    margin-top:30px;
+
+    background:
+    rgba(15,23,42,.8);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:25px;
+}
+
+.active-sensors h3{
+    margin-bottom:15px;
+}
+
+.active-sensors ul{
+    padding-left:20px;
+}
+
+.active-sensors li{
+    margin-bottom:8px;
+}
+
+/* Smooth Scroll */
+
+html{
+    scroll-behavior:smooth;
+}

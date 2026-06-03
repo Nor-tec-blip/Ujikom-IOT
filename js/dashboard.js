@@ -1,6 +1,6 @@
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { ref, onValue, set, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // Auth guard
 onAuthStateChanged(auth, (user) => {
@@ -14,7 +14,7 @@ document.getElementById('logoutBtn')?.addEventListener('click', async (e) => {
 });
 
 // ====================================
-// SENSOR DATA — hanya Suhu & Cahaya
+// SENSOR DATA - Real-time Update
 // ====================================
 const sensorRef = ref(db, 'sensor');
 
@@ -25,43 +25,41 @@ onValue(sensorRef, (snapshot) => {
     return;
   }
   updateStats(data);
-  updateTable(data.history || []);
-  // Teruskan ke chart
   window.__sensorData = data;
   if (window.renderChart) window.renderChart(data.chart);
-}, () => loadDummy());
+}, (error) => {
+  console.error('Error loading sensor data:', error);
+  loadDummy();
+});
 
 function updateStats(data) {
-  // Suhu
-  const suhu = data.suhu ?? '--';
-  document.getElementById('statSuhu').textContent = suhu + '°C';
-  const trendSuhu = document.getElementById('trendSuhu');
-  if (trendSuhu && suhu !== '--') {
-    trendSuhu.textContent = suhu > 35 ? '↑ Panas!' : suhu > 28 ? '↑ Normal' : '↓ Dingin';
-    trendSuhu.className = 'trend ' + (suhu > 35 ? 'down' : 'up');
+  // Update temperature
+  const temperature = data.suhu ?? data.temperature ?? '--';
+  if (document.getElementById('temperature')) {
+    document.getElementById('temperature').textContent = 
+      temperature === '--' ? '--' : temperature + '°C';
   }
 
-  // Cahaya
-  const cahaya = data.cahaya ?? '--';
-  document.getElementById('statCahaya').textContent = cahaya + ' lx';
-  const trendCahaya = document.getElementById('trendCahaya');
-  if (trendCahaya && cahaya !== '--') {
-    trendCahaya.textContent = cahaya > 400 ? '↑ Terang' : cahaya > 100 ? '↑ Redup' : '↓ Gelap';
-    trendCahaya.className = 'trend ' + (cahaya > 100 ? 'up' : 'down');
+  // Update humidity
+  const humidity = data.kelembapan ?? data.humidity ?? '--';
+  if (document.getElementById('humidity')) {
+    document.getElementById('humidity').textContent = 
+      humidity === '--' ? '--' : humidity + '%';
   }
-}
 
-function updateTable(rows) {
-  const tbody = document.getElementById('dataTable');
-  if (!tbody) return;
-  tbody.innerHTML = rows.map(r => `
-    <tr>
-      <td>${r.waktu}</td>
-      <td>${r.sensor}</td>
-      <td>${r.nilai}</td>
-      <td><span class="badge-pill ${r.status === 'OK' ? 'ok' : r.status === 'WARN' ? 'warn' : 'err'}">${r.status}</span></td>
-    </tr>
-  `).join('');
+  // Update soil moisture
+  const soil = data.soil ?? data.kelembapan_tanah ?? '--';
+  if (document.getElementById('soil')) {
+    document.getElementById('soil').textContent = 
+      soil === '--' ? '--' : soil + '%';
+  }
+
+  // Update light intensity
+  const light = data.cahaya ?? data.light ?? '--';
+  if (document.getElementById('light')) {
+    document.getElementById('light').textContent = 
+      light === '--' ? '--' : light + ' lx';
+  }
 }
 
 // Fallback ke dummy.json
@@ -70,9 +68,9 @@ async function loadDummy() {
     const res = await fetch('data/dummy.json');
     const data = await res.json();
     updateStats(data);
-    updateTable(data.history || []);
     window.__sensorData = data;
     if (window.renderChart) window.renderChart(data.chart);
+    console.log('Loaded dummy data:', data);
   } catch (e) {
     console.warn('Tidak bisa memuat data dummy:', e);
   }
@@ -81,22 +79,46 @@ async function loadDummy() {
 // ====================================
 // RELAY CONTROL
 // ====================================
-const relayRef = ref(db, 'relay/1');
-const relayToggle = document.getElementById('relayToggle');
-const relayLabel  = document.getElementById('relayLabel');
-const relayStatus = document.getElementById('relayStatus');
+const relayLamp = document.getElementById('relayLamp');
+const relayPump = document.getElementById('relayPump');
 
-// Dengarkan perubahan relay dari Firebase (realtime)
-onValue(relayRef, (snapshot) => {
-  const val = snapshot.val();
-  const isOn = val === 1 || val === true || val === '1';
+if (relayLamp) {
+  // Listen to lamp relay
+  onValue(ref(db, 'relay/lamp'), (snapshot) => {
+    const val = snapshot.val();
+    const isOn = val === 1 || val === true || val === '1';
+    relayLamp.checked = isOn;
+  });
 
-  if (relayToggle) relayToggle.checked = isOn;
-  if (relayLabel)  relayLabel.textContent = isOn ? 'ON' : 'OFF';
-  if (relayLabel)  relayLabel.style.color = isOn ? '#10b981' : 'var(--muted)';
-  if (relayStatus) relayStatus.textContent =
-    'Status: ' + (isOn ? '🟢 Menyala — perangkat aktif' : '🔴 Mati — perangkat non-aktif');
-});
+  // Control lamp relay
+  relayLamp.addEventListener('change', async (e) => {
+    const newVal = e.target.checked ? 1 : 0;
+    try {
+      await set(ref(db, 'relay/lamp'), newVal);
+    } catch (err) {
+      console.error('Error setting lamp relay:', err);
+    }
+  });
+}
+
+if (relayPump) {
+  // Listen to pump relay
+  onValue(ref(db, 'relay/pump'), (snapshot) => {
+    const val = snapshot.val();
+    const isOn = val === 1 || val === true || val === '1';
+    relayPump.checked = isOn;
+  });
+
+  // Control pump relay
+  relayPump.addEventListener('change', async (e) => {
+    const newVal = e.target.checked ? 1 : 0;
+    try {
+      await set(ref(db, 'relay/pump'), newVal);
+    } catch (err) {
+      console.error('Error setting pump relay:', err);
+    }
+  });
+}
 
 // Ketika toggle diklik → tulis ke Firebase & simpan ke riwayat
 if (relayToggle) {
