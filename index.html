@@ -1,95 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart IoT Monitoring - Ujikom 2026</title>
+    <title>Smart Greenhouse Monitoring</title>
 
     <link rel="stylesheet" href="css/style.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <header class="navbar">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
         <div class="logo">
-            🌱 Smart IoT
+            🌱 Smart Greenhouse
         </div>
 
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="login.html">Login</a>
-            <a href="dashboard.html" class="dashboard-btn">
-                Dashboard
-            </a>
-        </nav>
-    </header>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#feature">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li>
+                <a href="login.html" class="login-btn">
+                    Login
+                </a>
+            </li>
+        </ul>
 
-    <section class="hero">
+    </nav>
 
-        <div class="hero-left">
+    <!-- HERO -->
+    <section class="hero" id="home">
 
-            <span class="badge">
-                 Realtime Smart Monitoring
-            </span>
+        <div class="hero-content">
 
             <h1>
-                Smart Greenhouse
-                <span>Monitoring System</span>
+                IoT Monitoring System
             </h1>
 
             <p>
-                Monitor temperature, humidity, soil moisture,
-                lighting, and relay systems in realtime using
-                Firebase + IoT technology.
+                Pantau suhu, kelembapan, cahaya, dan kontrol relay
+                secara realtime menggunakan Firebase dan Micro:bit.
             </p>
 
             <div class="hero-buttons">
+
                 <a href="login.html" class="btn-primary">
-                    Login System
+                    Masuk Dashboard
                 </a>
 
-                <a href="dashboard.html" class="btn-secondary">
-                    Open Dashboard
+                <a href="#feature" class="btn-secondary">
+                    Pelajari Lebih Lanjut
                 </a>
-            </div>
-
-        </div>
-
-        <div class="hero-right">
-
-            <div class="status-card">
-
-                <div class="status-header">
-                    <h3>📡 Preview Device</h3>
-                    <span class="live blinking">
-                        ● LIVE DEMO
-                    </span>
-                </div>
-
-                <div class="sensor-preview">
-
-                    <div class="sensor-box">
-                        <h4>🌡 Temperature</h4>
-                        <p>28°C</p>
-                    </div>
-
-                    <div class="sensor-box">
-                        <h4>💧 Humidity</h4>
-                        <p>78%</p>
-                    </div>
-
-                    <div class="sensor-box">
-                        <h4>🌱 Soil</h4>
-                        <p>63%</p>
-                    </div>
-
-                    <div class="sensor-box">
-                        <h4>☀ Light</h4>
-                        <p>720 lx</p>
-                    </div>
-
-                </div>
 
             </div>
 
@@ -97,37 +62,69 @@
 
     </section>
 
-    <section class="features">
+    <!-- FEATURES -->
+    <section class="features" id="feature">
 
-        <div class="feature-card">
-            <h3>⚡ Realtime Monitoring</h3>
-            <p>
-                Monitor sensor values instantly with Firebase realtime database.
-            </p>
-        </div>
+        <h2>Fitur Utama</h2>
 
-        <div class="feature-card">
-            <h3>📊 Smart Analytics</h3>
-            <p>
-                Interactive charts powered by Chart.js for better monitoring.
-            </p>
-        </div>
+        <div class="feature-grid">
 
-        <div class="feature-card">
-            <h3>🔌 Relay Control</h3>
-            <p>
-                Turn pumps and lights ON/OFF directly from dashboard.
-            </p>
+            <div class="feature-card">
+                <h3>🌡 Temperature</h3>
+                <p>
+                    Monitoring suhu realtime dari sensor Micro:bit.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>💧 Humidity</h3>
+                <p>
+                    Pantau kelembapan lingkungan secara langsung.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>☀ Light Sensor</h3>
+                <p>
+                    Monitoring intensitas cahaya secara realtime.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>⚡ Relay Control</h3>
+                <p>
+                    Kontrol pompa, lampu, dan perangkat lainnya.
+                </p>
+            </div>
+
         </div>
 
     </section>
 
-    <footer class="ujikom-footer">
-        <div class="footer-content">
-            <p>© 2026 - Tim IoT Engineer Proyek Kolaboratif</p>
-            <p class="team-members">Anggota Kelompok: <strong>[Nama Ketua/Anggota A]</strong> & <strong>[Nama Anggota B]</strong></p>
-            <p class="school-info">Ujian Kompetensi Keahlian - Sistem Monitoring IoT</p>
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+        <div class="about-card">
+
+            <h2>Tentang Sistem</h2>
+
+            <p>
+                Sistem Monitoring IoT ini dibuat menggunakan
+                Micro:bit, ESP8266, Firebase Realtime Database,
+                PHP API, dan Dashboard Web Modern.
+            </p>
+
         </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026 Smart Greenhouse Monitoring System
+        </p>
+
     </footer>
 
 </body>
